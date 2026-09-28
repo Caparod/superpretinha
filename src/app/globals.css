@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #fff8f3;
+  --color-blush: #ffe4ee;
+  --color-pink: #ff4f9a;
+  --color-pink-deep: #e0197a;
+  --color-coral: #ff7a45;
+  --color-gold: #ffc861;
+  --color-copper: #b5622e;
+  --color-plum: #2b1035;
+  --color-plum-deep: #1b0a22;
+  --color-grape: #5b3fd6;
+  --color-lilac: #efe9ff;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-soft: 0 20px 60px -20px rgb(224 25 122 / 0.35);
+  --shadow-glow: 0 0 0 1px rgb(255 255 255 / 0.4), 0 30px 80px -20px rgb(224 25 122 / 0.45);
+}
+
+html { scroll-behavior: smooth; }
+html, body { overflow-x: hidden; }
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-plum);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(60% 50% at 10% 0%, rgb(255 79 154 / 0.14), transparent 60%),
+    radial-gradient(50% 40% at 95% 10%, rgb(255 122 69 / 0.16), transparent 60%),
+    radial-gradient(40% 40% at 50% 100%, rgb(91 63 214 / 0.10), transparent 60%);
+  background-attachment: fixed;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+}
+
+/* Gradient text with a slow shimmer */
+.grad-text {
+  background: linear-gradient(95deg, #e0197a 0%, #ff7a45 40%, #ffc861 60%, #ff4f9a 80%, #e0197a 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+@keyframes shimmer { to { background-position: 250% 0; } }
+
+.grad-ring {
+  background: conic-gradient(from 200deg, #ff4f9a, #ff7a45, #ffc861, #5b3fd6, #ff4f9a);
+}
+
+.glass {
+  background: rgb(255 255 255 / 0.7);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgb(255 255 255 / 0.7);
+}
+.glass-dark {
+  background: rgb(43 16 53 / 0.55);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgb(255 255 255 / 0.15);
+}
+
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Sparkles */
+.sparkle {
+  position: absolute;
+  width: 10px; height: 10px;
+  background: radial-gradient(circle, #fff 0 30%, transparent 70%);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  opacity: 0;
+  animation: twinkle 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.4) rotate(45deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(-14px) rotate(var(--rot, 0deg)); }
+}
+.animate-float { animation: float 7s ease-in-out infinite; }
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 28s linear infinite; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise { animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.rise-2 { animation-delay: 0.15s; }
+.rise-3 { animation-delay: 0.3s; }
+.rise-4 { animation-delay: 0.45s; }
+
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.animate-spin-slow { animation: spin-slow 18s linear infinite; }
+
+.photo-shine { overflow: hidden; }
+.photo-shine::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgb(255 255 255 / 0.28) 45%, transparent 60%);
+  transform: translateX(-120%);
+  transition: transform 0.9s ease;
+  pointer-events: none;
+}
+.photo-shine:hover::after { transform: translateX(120%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .grad-text, .sparkle, .animate-float, .animate-marquee, .rise, .animate-spin-slow { animation: none !important; }
+  .rise { opacity: 1; }
+}
